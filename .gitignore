@@ -1,0 +1,3 @@
+.env
+src/services/encryption.service.ts
+config.ts

@@ -5,7 +5,7 @@ import { isAdmin, validateToken } from "../middlewares/authentication";
 const router: Router = Router();
 
 router.get('/:userId', validateToken, userController.getUserById);
-router.put('/:userId', validateToken, userController.updateUserById);
+router.put('/:userId', [validateToken, isAdmin], userController.updateUserById);
 router.delete('/:userId', [validateToken, isAdmin], userController.deleteUserById);
 
 /** Routes to user's addresses **/

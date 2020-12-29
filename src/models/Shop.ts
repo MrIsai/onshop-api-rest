@@ -1,6 +1,6 @@
 import { Schema, Model, Document, model, ObjectId } from 'mongoose';
 
-interface ShopProps extends Document {
+export interface ShopProps extends Document {
     _id: string;
     name: string;
     description: string;

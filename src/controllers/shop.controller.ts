@@ -27,3 +27,10 @@ export const createShop = async (req: Request, res: Response) => {
         return res.sendStatus(500);
     }
 }
+
+export const updateShopById = async (req: Request, res: Response) => {
+    const { shopId } = req.params;
+    const { name, description, logo, portrait } = req.body;
+
+    if(!shopId) return res.status(400).send({message: "Shop id missing"});
+}

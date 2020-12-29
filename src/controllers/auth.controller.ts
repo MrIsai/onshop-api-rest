@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
-import User from '../models/User';
-import Role, { RoleProps } from '../models/Role';
+import User, { UserProps } from '../models/User';
+import Role from '../models/Role';
 import jwt from 'jsonwebtoken';
 import { comparePasswords, encryptPassword } from "../services/encryption.service";
+import config from "../config";
 
 export const signup = async (req: Request, res: Response) => {
     // code to sign up an user
@@ -21,7 +22,7 @@ export const signup = async (req: Request, res: Response) => {
         const users = await User.find({ email });
         if (users.length === 0) {
             // save the data
-            const newUser = new User({
+            const newUser: UserProps = new User({
                 name: {
                     first: name.first,
                     last: name.last
@@ -40,16 +41,34 @@ export const signup = async (req: Request, res: Response) => {
             }
 
             const saveResult = await newUser.save();
-            const token = jwt.sign({ id: saveResult._id }, 'theSecretWord', {
+            const token = jwt.sign({ id: saveResult._id }, config.WORD, {
                 expiresIn: 24 * 60 * 60
             });
 
-            res.send({ authenticated: true, message: 'OK', token });
+            res.send({ message: 'OK', token, ...saveResult });
         } else {
-            res.send({ authenticated: false, message: `The user with email:${email} already exists.` });
+            res.status(400).send({ message: `The user with email ${email} already exists.` });
         }
     } catch (error) {
-        res.sendStatus(500);
+        res.status(500).send(error);
+    }
+}
+
+export const loginById = async (req: Request, res: Response) => {
+    const { userId } = req.params;
+    const { password } = req.body;
+    try {
+        const userResult = await User.findById(userId);
+        if (!userResult) return res.status(404).send({ authenticated: false, message: "The user doesn't exists." });
+
+        const isPasswordValid = comparePasswords(password, userResult.password);
+        if (!isPasswordValid) return res.status(401).send({ message: "Invalid password" });
+
+        const token = jwt.sign({ id: userResult._id }, config.WORD, { expiresIn: 24 * 60 * 60 });
+        res.send({ token, message: "OK", id: userResult._id });
+
+    } catch (error) {
+        return res.status(500).send(error);
     }
 }
 
@@ -58,20 +77,15 @@ export const login = async (req: Request, res: Response) => {
     const { email, password } = req.body;
     try {
         const userResult = await User.findOne({ email });
-        if (!userResult) {
-            res.send({ authenticated: false, message: `The user with email:${email} doesn't exists.` });
-        } else {
-            const isPasswordValid = comparePasswords(password, userResult.password);
-            if (isPasswordValid) {
-                const token = jwt.sign({ id: userResult._id }, 'theSecretWord', {
-                    expiresIn: 24 * 60 * 60
-                });
-                res.send({ authenticated: true, token, message: 'OK', });
-            } else {
-                res.send({ authenticated: false, message: 'Invalid password' });
-            }
-        }
+        if (!userResult) return res.status(404).send({ message: `The user with email:${email} doesn't exists.` });
+
+        const isPasswordValid = comparePasswords(password, userResult.password);
+        if (!isPasswordValid) res.send({ message: 'Invalid password' });
+
+        const token = jwt.sign({ id: userResult._id }, config.WORD, { expiresIn: 24 * 60 * 60 });
+        res.send({ token, message: 'OK', id: userResult._id });
+
     } catch (error) {
-        res.sendStatus(500);
+        res.status(500).send(error);
     }
 }
