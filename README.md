@@ -1,4 +1,4 @@
-# OnShop REST API
+# ONSHOP REST API
 
 OnShop is the solution for enterprising people who want to open an online business on a platform that provides the digital marketing service.
 
