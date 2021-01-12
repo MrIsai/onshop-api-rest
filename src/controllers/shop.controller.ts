@@ -17,9 +17,9 @@ export const getShopById = async (req: Request, res: Response) => {
 
     try {
         const shop = await Shop.findById(shopId);
-        if(!shop) return res.status(404).send({ message: "Not Found", shop: null });
+        if (!shop) return res.status(404).send({ message: "Not Found", shop: null });
 
-        return res.send({message: "OK", shop});
+        return res.send({ message: "OK", shop });
     } catch (error) {
         res.status(500).send({ message: error });
     }
@@ -66,8 +66,27 @@ export const setShopBrandLogo = async (req: Request, res: Response) => {
     }
 }
 
-export const setShopTheme = async (req: Request, res: Response) => {
+export const updateShopTheme = async (req: Request, res: Response) => {
+    const { background, title, text, border, button } = req.body;
+    const { shopId } = req.params;
 
+    try {
+        await Shop.findByIdAndUpdate(shopId, {
+            $set: {
+                theme: {
+                    background,
+                    border,
+                    title,
+                    text,
+                    button
+                }
+            }
+        });
+
+        return res.send({ message: "OK" });
+    } catch (error) {
+        return res.status(500).send({ message: error });
+    }
 }
 
 export const updateShopById = async (req: Request, res: Response) => {

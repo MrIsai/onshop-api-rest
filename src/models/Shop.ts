@@ -19,20 +19,13 @@ const ShopSchema: Schema = new Schema({
     background: String, // url where the image is stored
     brandLogo: String,
 
-    themes: [{
-        name: {
-            type: String,
-            required: true,
-            unique: true
-        },
-        colors: {
-            background: String,
-            title: String,
-            text: String,
-            border: String,
-            button: String,
-        }
-    }],
+    theme: {
+        background: String,
+        title: String,
+        text: String,
+        border: String,
+        button: String,
+    },
 
     design: {
         productView: {
