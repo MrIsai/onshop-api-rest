@@ -12,4 +12,4 @@ This repository contains a REST API which is a fundamental component of the OnSh
 
 - Protected Routes based in JSON Web Tokens (JWT)
 - User registration and active sessions through login
-- CRUD operations to users, shops, products and others.
+- CRUD operations for users, shops, products and others.
