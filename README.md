@@ -10,6 +10,7 @@ This repository contains a REST API which is a fundamental component of the OnSh
 
 ## API Features
 
-- Protected Routes based in JSON Web Tokens (JWT)
+- Protected Routes with JSON Web Tokens (JWT)
 - User registration and active sessions through login
 - CRUD operations for users, shops, products and others.
+- Media storage works with [Cloudinary Services (CDN)](https://cloudinary.com/)
