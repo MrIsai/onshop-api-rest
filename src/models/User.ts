@@ -4,7 +4,8 @@ export interface UserProps extends Document {
     name: { first: string; last: string; };
     email: string;
     password: string;
-    roles: ObjectId[]
+    country: string;
+    roles: ObjectId[];
 };
 
 const UserSchema: Schema = new Schema({
@@ -13,6 +14,7 @@ const UserSchema: Schema = new Schema({
             type: String,
             required: true
         },
+
         last: {
             type: String,
             required: true
@@ -24,20 +26,16 @@ const UserSchema: Schema = new Schema({
         required: true,
         unique: true
     },
-    password: {
-        type: String,
-        required: true
-    },
 
-    roles: [{
-        ref: "Role",
-        type: Schema.Types.ObjectId
-    }],
+    password: { type: String, required: true },
 
-    shops: [{
-        ref: "Shop",
-        type: String
-    }]
+    country: String,
+
+    roles: [{ ref: "Role", type: Schema.Types.ObjectId }],
+
+    identityNumber: String,
+
+    addresses: [{ ref: 'Address', type: Schema.Types.ObjectId }]
 }, {
     timestamps: true,
     versionKey: false

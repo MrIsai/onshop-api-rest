@@ -4,7 +4,7 @@ import mountedRoutes from './routes/index.routes';
 import mongoose from 'mongoose';
 import * as dotenv from 'dotenv';
 import { createRoles } from './libs/initialSetup';
-import { create } from 'domain';
+import cloudinary from 'cloudinary';
 dotenv.config();
 
 declare global {
@@ -13,6 +13,15 @@ declare global {
             MONGO_URL: string;
             PORT: string;
             SECRET_TOKEN: string;
+            CLOUDINARY_URL: string;
+        }
+    }
+}
+
+declare global {
+    namespace Express {
+        export interface Request {
+            userId: string;
         }
     }
 }
@@ -20,6 +29,12 @@ declare global {
 const app: Application = express();
 const PORT: string = process.env.PORT || "3004";
 createRoles();
+
+cloudinary.v2.config({
+    cloud_name: 'dl33ap0rt',
+    api_key: '939578793359479',
+    api_secret: 'Owxgny-E40oxIvE_jTsLyrk1iWQ'
+});
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');

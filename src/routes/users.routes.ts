@@ -8,6 +8,8 @@ router.get('/:userId', validateToken, userController.getUserById);
 router.put('/:userId', [validateToken, isAdmin], userController.updateUserById);
 router.delete('/:userId', [validateToken, isAdmin], userController.deleteUserById);
 
+router.put('/:userId/photo', userController.updateAccountPhotoById);
+
 /** Routes to user's addresses **/
 router.get('/:userId/addresses', validateToken, (req: Request, res: Response) => {
     // code to get all addresses by userId
