@@ -15,3 +15,8 @@ This repository contains a REST API which is a fundamental component of the OnSh
 - CRUD operations for users, shops, products and others.
 - Media storage works with [Cloudinary Services (CDN)](https://cloudinary.com/)
 - App data storage works with **Mongoose** and **MondoDB**
+
+## More
+
+Author: Isai Pashel
+Developed by: Isai Pashel
