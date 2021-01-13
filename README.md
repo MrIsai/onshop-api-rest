@@ -18,5 +18,5 @@ This repository contains a REST API which is a fundamental component of the OnSh
 
 ## More
 
-Author: Isai Pashel
+Author: Isai Pashel  
 Developed by: Isai Pashel
