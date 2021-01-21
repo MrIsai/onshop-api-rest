@@ -20,11 +20,11 @@ This repository contains a REST API which is a fundamental component of the OnSh
 
 | Route          | HTTP Method | Description                |
 |----------------|-------------|----------------------------|
-| /auth/signup   | POST        | User registration          |
-| /auth/login    | POST        | User login                 |
-| /users/:userId | GET         | Get the user data by id    |
-| /users/:userId | PUT         | Update the user data by id |
-| /users/:userId | DELETE      | Delete the user data by id |
+| `/auth/signup`   | POST        | User registration          |
+| `/auth/login`    | POST        | User login                 |
+| `/users/:userId` | GET         | Get the user data by id    |
+| `/users/:userId` | PUT         | Update the user data by id |
+| `/users/:userId` | DELETE      | Delete the user data by id |
 
 ## More
 
