@@ -1,4 +1,4 @@
-# ONSHOP REST API
+# ONSHOP PROJECT - REST API
 
 Version 0.1.0 (Alpha)
 
